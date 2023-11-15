@@ -44,18 +44,14 @@ describe("API create car", () => {
     name: "Suzuki",
     price: 300000,
     size: "SMALL",
-    image:
-      "https://https://unsplash.com/photos/a-group-of-antelope-standing-in-the-desert-i60yUhfWeYI",
+    image: "https://https://unsplash.com/photos/a-group-of-antelope-standing-in-the-desert-i60yUhfWeYI",
   };
 
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6IkpvaG5ueSIsImVtYWlsIjoiam9obm55QGJpbmFyLmNvLmlkIiwiaW1hZ2UiOm51bGwsInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJBRE1JTiJ9LCJpYXQiOjE2OTk4ODU1NDF9.ZMTs6GtxtXjixTa-s-ok2JQg--HwD4k6W_gfNHYqQUQ";
 
   it("success create data car", async () => {
-    const response = await request(app)
-      .post("/v1/cars")
-      .send(carData)
-      .set("Authorization", `Bearer ${token}`);
+    const response = await request(app).post("/v1/cars").send(carData).set("Authorization", `Bearer ${token}`);
     expect(response.statusCode).toBe(201);
   });
 
@@ -65,10 +61,17 @@ describe("API create car", () => {
   });
 
   it("failed create data car if body is null", async () => {
-    const response = await request(app)
-      .post("/v1/cars")
-      .send({})
-      .set("Authorization", `Bearer ${token}`);
+    const response = await request(app).post("/v1/cars").send({}).set("Authorization", `Bearer ${token}`);
     expect(response.statusCode).toBe(422);
+  });
+});
+
+describe("API delete car By ID", () => {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6IkpvaG5ueSIsImVtYWlsIjoiam9obm55QGJpbmFyLmNvLmlkIiwiaW1hZ2UiOm51bGwsInJvbGUiOnsiaWQiOjIsIm5hbWUiOiJBRE1JTiJ9LCJpYXQiOjE2OTk4ODU1NDF9.ZMTs6GtxtXjixTa-s-ok2JQg--HwD4k6W_gfNHYqQUQ";
+
+  it("success delete data car", async () => {
+    const response = await request(app).delete("/v1/cars/20").set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(204);
   });
 });
