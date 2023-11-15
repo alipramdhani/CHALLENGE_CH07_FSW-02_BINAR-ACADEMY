@@ -38,6 +38,7 @@ module.exports = {
 
     users = [...users, usersCustomer];
 
+
     await queryInterface.bulkInsert("Users", users, {});
   },
 
