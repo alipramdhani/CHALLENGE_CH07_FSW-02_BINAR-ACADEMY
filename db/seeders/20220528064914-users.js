@@ -18,7 +18,16 @@ module.exports = {
       },
     });
 
-    const users = names.map((name) => ({
+    const usersCustomer = {
+      name: "Jojo",
+      email: "jojo@binar.co.id",
+      encryptedPassword,
+      roleId: 1,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    };
+
+    let users = names.map((name) => ({
       name,
       email: `${name.toLowerCase()}@binar.co.id`,
       encryptedPassword,
@@ -26,6 +35,9 @@ module.exports = {
       createdAt: timestamp,
       updatedAt: timestamp,
     }));
+
+    users = [...users, usersCustomer];
+
 
     await queryInterface.bulkInsert("Users", users, {});
   },
