@@ -31,3 +31,23 @@ describe("API Login", () => {
     expect(response.statusCode).toBe(404);
   });
 });
+
+describe("API check token", () => {
+  it("success check token", async () => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Ikpvam8iLCJlbWFpbCI6Impvam9AYmluYXIuY28uaWQiLCJpbWFnZSI6bnVsbCwicm9sZSI6eyJpZCI6MSwibmFtZSI6IkNVU1RPTUVSIn0sImlhdCI6MTcwMDAzNjY0MH0.fqJLyXERO8SzlY478mb2_BTgc7WaDIf3vRjgca3k6qE";
+    const response = await request(app)
+      .get("/v1/auth/whoami")
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(200);
+  });
+
+  it("failed check token: wrong token", async () => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Ikpvam8iLCJlbWFpbCI6Impvam9AYmluYXIuY28uaWQiLCJpbWFnZSI6bnVsbCwicm9sZSI6eyJpZCI6MSwibmFtZSI6IkNVU1RPTUVSIn0sImlhdCI6MTcwMDAzNjY0MH0.fqJLyXERO8SzlY478mb2_BTgc7WaDIf3vRjgca3k6q3";
+    const response = await request(app)
+      .get("/v1/auth/whoami")
+      .set("Authorization", `Bearer ${token}`);
+    expect(response.statusCode).toBe(401);
+  });
+});
